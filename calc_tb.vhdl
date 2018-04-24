@@ -3,22 +3,26 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use STD.Textio.all;
+--use ieee.std_logic_textio.all;
 
 --  A testbench has no ports.
 entity calc_tb is
-end calc;
+end calc_tb;
 
 architecture behav of calc_tb is
 --  Declaration of the component that will be instantiated.
 component calc
 	port (
 		I: in std_logic_vector(7 downto 0);
-		clk: in std_logic;
+		clk: in std_logic
 	);
 end component;
 
-signal i : std_logic_vector(3 downto 0);
+signal i : std_logic_vector(7 downto 0);
 signal clk: std_logic;
+
+--file infile : text;
 
 constant clk_period : time := 10 ns;
 
@@ -40,14 +44,18 @@ end process;
 
 -- This process does the real job.
 process
-file infile : TEXT open read_mode is "input.txt";
+file   infile    : text is in  "input.txt";
+variable l : line;
 variable data : std_logic_vector(7 downto 0);
 begin
+	--file_open(infile, "input.txt",  read_mode);
+	
 	while not(endfile(infile)) loop
-	if risingEdge(clk) then
-		read(infile,data);
+		if rising_edge(clk) then
+		readline(infile, l);
+		read(l,data);
 		i<= data;
-	end if;
+		end if;
 	end loop;
 	
 	wait;
