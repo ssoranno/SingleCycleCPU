@@ -1,0 +1,74 @@
+$date
+  Wed Apr 18 16:34:17 2018
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$var reg 8 ! i[7:0] $end
+$var reg 1 " cs $end
+$var reg 2 # r1[1:0] $end
+$var reg 2 $ r2[1:0] $end
+$var reg 2 % rd[1:0] $end
+$var reg 4 & imm[3:0] $end
+$scope module decode $end
+$var reg 8 ' i[7:0] $end
+$var reg 1 ( consig $end
+$var reg 2 ) r1[1:0] $end
+$var reg 2 * r2[1:0] $end
+$var reg 2 + rd[1:0] $end
+$var reg 4 , imm[3:0] $end
+$var reg 2 - s1[1:0] $end
+$var reg 4 . s2[3:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+b00000000 !
+0"
+b00 #
+b00 $
+b00 %
+b0000 &
+b00000000 '
+0(
+b00 )
+b00 *
+b00 +
+b0000 ,
+b00 -
+b0000 .
+#10000000
+b10001010 !
+b10 $
+b1010 &
+b10001010 '
+b10 *
+b1010 ,
+b0010 .
+#20000000
+b01011100 !
+b11 #
+b00 $
+b01 %
+b0000 &
+b01011100 '
+b11 )
+b00 *
+b01 +
+b0000 ,
+b01 -
+b0000 .
+#30000000
+b11100001 !
+b10 #
+b10 %
+b0001 &
+b11100001 '
+b10 )
+b10 +
+b0001 ,
+b10 -
+b0001 .
+#40000000

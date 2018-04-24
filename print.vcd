@@ -1,0 +1,21 @@
+$date
+  Fri Apr 20 15:33:59 2018
+$end
+$version
+  GHDL v0
+$end
+$timescale
+  1 fs
+$end
+$var reg 8 ! i[7:0] $end
+$scope module p $end
+$var reg 8 " i[7:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+b00010001 !
+b00010001 "
+#10000000
+b10101010 !
+b10101010 "
+#20000000
