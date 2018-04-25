@@ -51,7 +51,7 @@ begin
 
 		wait for 10 ns;
 		--testing addition of two positives
-		a<="11000010";
+		a<="11000011";
 
 		wait for 10 ns;
 	wait;

@@ -55,6 +55,10 @@ begin
 	i<= "11100001";
 	wait for 10 ns;
 	
+	cs<= '1';
+	i<="11000010";
+	wait for 10 ns;
+	
 	wait;
 	end process;
 end test;
