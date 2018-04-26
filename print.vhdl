@@ -37,7 +37,7 @@ begin
 		case f(i) is
 		when '0' => output(i+1):= character'('0');
 		when '1' => output(i+1):= character'('1');
-		when others =>report "hello";--output(i+1):= character'('0');
+		when others =>output(i+1):= character'('0');
 		end case;
 		end loop;
 		report output;

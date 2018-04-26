@@ -111,6 +111,7 @@ signal outskip: std_logic;
 signal inSkip: std_logic_vector(3 downto 0);
 signal postskip: std_logic_vector(3 downto 0);
 signal REnable : std_logic;
+signal inTemp : std_logic;
 
 begin
 
@@ -143,11 +144,14 @@ inSkip<= IMM when outskip = '0' else
 
 SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => '1', O=>postskip);
 
---outskip<=postskip(0) or postskip(1) or postskip(2) or postskip(3);
-outskip<='0';
+inTemp<= '0' when outskip = 'U' or outskip = '0' else
+	'1' when outskip = '1';
+outskip<=postskip(0) or postskip(1) or postskip(2) or postskip(3);
+--outskip<='0';
 
-REnable<= clk when outskip='0' else
-	'0' when outskip='1';
+
+REnable<= clk when inTemp='0' else
+	'0' when inTemp='1';
 
 poop<=ALUO;
 
