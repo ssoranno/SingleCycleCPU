@@ -20,7 +20,11 @@ entity calc is
 		pout: out std_logic;
 		pp:out std_logic_vector(7 downto 0);
 		plb:out std_logic_vector(7 downto 0);
-		prt: out std_logic
+		prt: out std_logic;
+		pInTemp:out std_logic;
+		pSV: out std_logic_vector(3 downto 0);
+		pSC: out std_logic;
+		pPostS: out std_logic_vector(3 downto 0)
 	);
 end calc;
 
@@ -112,6 +116,8 @@ signal inSkip: std_logic_vector(3 downto 0);
 signal postskip: std_logic_vector(3 downto 0);
 signal REnable : std_logic;
 signal inTemp : std_logic;
+signal printEnable : std_logic;
+signal temp2: std_logic;
 
 begin
 
@@ -126,23 +132,29 @@ ALUO<= sum when ALUSKIP='0' else
 
 p<= ALUO when PT='1';
 LB<= ALUO when PT='0';
+
+printEnable<= PT and not inTemp;
 	
-P1: print port map(I=>p, EN=>PT, clk=>clk);
+P1: print port map(I=>p, EN=>printEnable, clk=>clk);
 
 WB<= ext when LOAD='0' else
 	LB when LOAD='1';
 
-skipControl <= not(LB(0) or LB(1) or LB(2) or LB(3) or LB(4) or LB(5) or LB(6) or LB(7));
+skipControl<= temp2 when DISPBEQ = '1' else
+	'0' when DISPBEQ = '0';
+	
+
+temp2 <= not(LB(0) or LB(1) or LB(2) or LB(3) or LB(4) or LB(5) or LB(6) or LB(7));
 	
 skipVal<= IMM when skipControl = '1' else
 	"0000" when skipControl = '0';
 
-inSkip<= IMM when outskip = '0' else
-	postskip when outskip = '1';
+inSkip<= IMM when inTemp = '0' else
+	postskip when inTemp = '1';
 	
 
 
-SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => '1', O=>postskip);
+SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => skipControl, O=>postskip);
 
 inTemp<= '0' when outskip = 'U' or outskip = '0' else
 	'1' when outskip = '1';
@@ -154,7 +166,7 @@ REnable<= clk when inTemp='0' else
 	'0' when inTemp='1';
 
 poop<=ALUO;
-
+pInTemp<=inTemp;
 poopO1<=O1;
 poopO2<=O2;
 poopR1<=R1;
@@ -166,4 +178,7 @@ pout<=outskip;
 pp<= p;
 plb<= LB;
 prt<=PT;
+pSV<= skipVal;
+pSC<=skipControl;
+pPostS<=postskip;
 end behav;

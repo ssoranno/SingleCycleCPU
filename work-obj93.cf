@@ -1,39 +1,33 @@
 v 4
-file . "print_tb.vhdl" "90b9ec153fd6ad2a62b228b33c2af1b9edaa96a0" "20180425220809.232":
-  entity print_tb at 4( 61) + 0 on 169;
-  architecture behav of print_tb at 11( 176) + 0 on 170;
-file . "regFile_tb.vhdl" "be0d131ba4e63fa1794eb5a9e7e0a5838cf8ba4c" "20180425212553.059":
-  entity regfile_tb at 4( 61) + 0 on 49;
-  architecture behav of regfile_tb at 11( 180) + 0 on 50;
-file . "shift_reg.vhdl" "f1f34fc73a42f305da4b5bcadbf5945fd23cc7f5" "20180426010746.072":
-  entity shift_reg at 4( 58) + 0 on 575;
-  architecture behav of shift_reg at 17( 544) + 0 on 576;
-file . "add_sub.vhdl" "368aab185429e12197d37dcbf5b901089cebbd3a" "20180426010745.244":
-  entity full_adder at 1( 0) + 0 on 569;
-  architecture behav of full_adder at 14( 248) + 0 on 570;
-  entity add_sub at 26( 440) + 0 on 571;
-  architecture behav of add_sub at 41( 780) + 0 on 572;
-file . "sign_extend.vhdl" "b21665290c16b197a6e83163e700915cd02d7f79" "20180426010744.410":
-  entity sign_extend at 1( 0) + 0 on 565;
-  architecture behav of sign_extend at 11( 184) + 0 on 566;
-file . "regFile.vhdl" "dfbd58b91b136a4e9535d6a24bceeeefeb18c860" "20180426010743.244":
-  entity regfile at 4( 52) + 0 on 561;
-  architecture reg of regfile at 19( 433) + 0 on 562;
-file . "calc.vhdl" "09cfb10e8af9b842cfcf92528b01657028d20988" "20180426010746.455":
-  entity calc at 4( 61) + 0 on 577;
-  architecture behav of calc at 27( 700) + 0 on 578;
-file . "calc_tb.vhdl" "2665d768a5111e999bdfbc460bb9d22d3ac0abf0" "20180426010746.907":
-  entity calc_tb at 4( 61) + 0 on 579;
-  architecture behav of calc_tb at 13( 229) + 0 on 580;
-file . "inDecode.vhdl" "eda36f262651aca4059f9f8a2776e0ff3ba499d6" "20180426010743.871":
-  entity indecode at 4( 63) + 0 on 563;
-  architecture decode of indecode at 17( 393) + 0 on 564;
-file . "print.vhdl" "085c2c089ab2bc9f4dd1fff2832c60e189abdde6" "20180426010744.833":
-  entity print at 4( 58) + 0 on 567;
-  architecture behav of print at 17( 301) + 0 on 568;
-file . "controller.vhdl" "183753318846e3e714359f24b56e2ce092d10b72" "20180426010745.665":
-  entity controller at 1( 0) + 0 on 573;
-  architecture behav of controller at 15( 299) + 0 on 574;
-file . "flipFlop_8bit.vhdl" "91e300517062e77b90779d3f843feccce718046d" "20180426010742.779":
-  entity flipflop_8bit at 4( 52) + 0 on 559;
-  architecture ff of flipflop_8bit at 15( 281) + 0 on 560;
+file . "inDecode.vhdl" "eda36f262651aca4059f9f8a2776e0ff3ba499d6" "20180426214920.093":
+  entity indecode at 4( 63) + 0 on 273;
+  architecture decode of indecode at 17( 393) + 0 on 274;
+file . "flipFlop_8bit.vhdl" "91e300517062e77b90779d3f843feccce718046d" "20180426214919.109":
+  entity flipflop_8bit at 4( 52) + 0 on 269;
+  architecture ff of flipflop_8bit at 15( 281) + 0 on 270;
+file . "calc.vhdl" "abc3a51ac9ff098a755a88f4c1fd87e9f7b44738" "20180426214924.427":
+  entity calc at 4( 61) + 0 on 287;
+  architecture behav of calc at 31( 836) + 0 on 288;
+file . "controller.vhdl" "183753318846e3e714359f24b56e2ce092d10b72" "20180426214922.810":
+  entity controller at 1( 0) + 0 on 283;
+  architecture behav of controller at 15( 299) + 0 on 284;
+file . "print.vhdl" "edb7b3b677ad592b5b29249647d52c15b87d1113" "20180426214921.409":
+  entity print at 4( 58) + 0 on 277;
+  architecture behav of print at 18( 328) + 0 on 278;
+file . "sign_extend.vhdl" "b21665290c16b197a6e83163e700915cd02d7f79" "20180426214920.749":
+  entity sign_extend at 1( 0) + 0 on 275;
+  architecture behav of sign_extend at 11( 184) + 0 on 276;
+file . "add_sub.vhdl" "368aab185429e12197d37dcbf5b901089cebbd3a" "20180426214922.133":
+  entity full_adder at 1( 0) + 0 on 279;
+  architecture behav of full_adder at 14( 248) + 0 on 280;
+  entity add_sub at 26( 440) + 0 on 281;
+  architecture behav of add_sub at 41( 780) + 0 on 282;
+file . "shift_reg.vhdl" "f1f34fc73a42f305da4b5bcadbf5945fd23cc7f5" "20180426214923.556":
+  entity shift_reg at 4( 58) + 0 on 285;
+  architecture behav of shift_reg at 17( 544) + 0 on 286;
+file . "calc_tb.vhdl" "0441b8154ae2651ea6e005295987d4d595d21d35" "20180426214926.228":
+  entity calc_tb at 4( 61) + 0 on 289;
+  architecture behav of calc_tb at 13( 229) + 0 on 290;
+file . "regFile.vhdl" "3e1f0048a82c1fb87378c5f11eccae651a491867" "20180426214919.581":
+  entity regfile at 4( 52) + 0 on 271;
+  architecture reg of regfile at 19( 433) + 0 on 272;

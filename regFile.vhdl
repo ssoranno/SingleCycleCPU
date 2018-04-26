@@ -40,10 +40,10 @@ signal t3 : std_logic_vector(7 downto 0);
 
 begin
 
-v0<= wb when rd= "00";
-v1<= wb when rd= "01";
-v2<= wb when rd= "10";
-v3<= wb when rd= "11";
+v0<= wb when rd= "00" and enable ='1';
+v1<= wb when rd= "01" and enable ='1';
+v2<= wb when rd= "10" and enable ='1';
+v3<= wb when rd= "11" and enable ='1';
 
 FF0: flipFlop_8bit port map(d=>v0, clk=>clk, enable=>enable, q=>t0);
 FF1: flipFlop_8bit port map(d=>v1, clk=>clk, enable=>enable, q=>t1);

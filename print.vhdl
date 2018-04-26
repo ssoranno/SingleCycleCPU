@@ -26,17 +26,22 @@ variable o1: string (1 to 1);
 variable o2: string (1 to 1);
 variable o3: string (1 to 1);
 variable o4: string (1 to 1);
---variable p1: string(1 to 8);
-variable output: string(1 to 4);
+variable sign: string(1 to 1);
+variable output: string(1 to 5);
 begin
 	if falling_edge(clk) then
 	if EN = '1' then
-		g:= to_Integer(unsigned(I));
+		g:= to_Integer(signed(I));
+		if g < 0 then
+			sign:= "-";
+		else 
+			sign:= " ";
+		end if;
 		o1:= integer'image(g/1000);
 		o2:= integer'image((g/100)mod 10);
 		o3:= integer'image((g/10)mod 10);
 		o4:= integer'image(g mod 10);
-		output:= o1&o2&o3&o4;
+		output:= sign&o1&o2&o3&o4;
 		--output(1):= character'val(g1);
 		--output(2):= character'val(g2);
 		--output(3):= character'val(g3);
