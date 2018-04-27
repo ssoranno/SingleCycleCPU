@@ -1,0 +1,12 @@
+${CC} ghdl -a flipFlop_8bit.vhdl
+${CC} ghdl -a regFile.vhdl
+${CC} ghdl -a inDecode.vhdl
+${CC} ghdl -a sign_extend.vhdl
+${CC} ghdl -a print.vhdl
+${CC} ghdl -a add_sub.vhdl
+${CC} ghdl -a controller.vhdl
+${CC} ghdl -a shift_reg.vhdl
+${CC} ghdl -a calc.vhdl
+${CC} ghdl -a calc_tb.vhdl
+${CC} ghdl -e calc_tb
+${CC} ghdl -r calc_tb "--vcd=calc.vcd"
