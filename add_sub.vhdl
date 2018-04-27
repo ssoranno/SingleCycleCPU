@@ -1,3 +1,6 @@
+-- Steven Soranno and Evan DeAngelis
+-- full_adder and add_sub
+
 library ieee;
 use ieee.std_logic_1164.all;
  

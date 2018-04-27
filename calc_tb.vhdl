@@ -1,5 +1,5 @@
 -- Steven Soranno and Evan Deangelis
--- Problem 2 part b
+-- Main calculator test bench
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -15,41 +15,18 @@ architecture behav of calc_tb is
 component calc
 	port (
 		I: in std_logic_vector(7 downto 0);
-		clk: in std_logic;
-		poop: out std_logic_vector(7 downto 0);
-		poopO1: out std_logic_vector(7 downto 0);
-		poopO2: out std_logic_vector(7 downto 0);
-		poopR1: out std_logic_vector(1 downto 0);
-		poopR2: out std_logic_vector(1 downto 0);
-		prd: out std_logic_vector(1 downto 0);
-		pwb: out std_logic_vector(7 downto 0);
-		pre: out std_logic;
-		pout: out std_logic;
-		pp:out std_logic_vector(7 downto 0);
-		plb:out std_logic_vector(7 downto 0);
-		prt: out std_logic;
-		pInTemp:out std_logic;
-		pSV: out std_logic_vector(3 downto 0);
-		pSC: out std_logic;
-		pPostS: out std_logic_vector(3 downto 0);
-		ptemp2:out std_logic;
-		pDB:out std_logic;
-		pInSkip: out std_logic_vector(3 downto 0)
+		clk: in std_logic
 	);
 end component;
 
-signal i,poop, poopO1, poopO2, pwb, plb, pp: std_logic_vector(7 downto 0);
-signal poopR1, poopR2, prd: std_logic_vector(1 downto 0);
-signal clk, pre,pout,prt,pInTemp, pSC, pDB, ptemp2: std_logic;
-signal pSVal, pPostS, pInSkip: std_logic_vector(3 downto 0);
-
---file infile : text;
+signal i : std_logic_vector(7 downto 0);
+signal clk: std_logic;
 
 constant clk_period : time := 10 ns;
 
 begin
 --  Component instantiation.
-c1: calc port map (i => I, clk => clk, poop=>poop, poopO1=>poopO1, poopO2=>poopO2, poopR1=>poopR1, poopR2=>poopR2, prd=>prd, pwb=>pwb, pre=>pre, pout=>pout, plb=>plb, pp=>pp, prt=>prt,pInTemp=>pInTemp, pSV=>pSVal, pSC=>pSC, pPostS=>pPostS, pDB=>pDB, ptemp2=>ptemp2, pInSkip=>pInSkip);
+c1: calc port map (i => I, clk => clk);
 
 -- Clock process
 clk_process : process
@@ -87,24 +64,34 @@ begin
 	i<= "11000010";
 	wait until rising_edge(clk);
 	i<= "11000011";
-	-- Load positive int 5
-	wait until rising_edge(clk);
+	
+	wait until rising_edge(clk); -- Load positive int 5 to register 0
 	i<= "10000101";
-	wait until rising_edge(clk);
+	
+	wait until rising_edge(clk); -- Display register 0
 	i<= "11000000";
-	-- Load negative int -3
+	
+	-- Load negative int -3 to register 1
 	wait until rising_edge(clk);
 	i<= "10011101";
+	
+	-- Display register 1
 	wait until rising_edge(clk);
 	i<= "11000001";
-	-- load 0
+	
+	-- load 0 to register 2
 	wait until rising_edge(clk);
 	i<= "10100000";
+	
+	-- Display register 2
 	wait until rising_edge(clk);
 	i<= "11000010";
-	-- load max positive 7
+	
+	-- load max positive 7 to register 
 	wait until rising_edge(clk);
 	i<= "10110111";
+	
+	-- 
 	wait until rising_edge(clk);
 	i<= "11000011";
 	-- load min negative -8
@@ -219,22 +206,5 @@ begin
 	i<= "11000001";
 	wait;
 	
-	
-	-- i<= "10000001";
-	-- wait until rising_edge(clk);
-	-- i<= "10110010";
-	-- wait until rising_edge(clk);
-	-- i<= "10010001";
-	-- wait until rising_edge(clk);
-	-- i<= "10100111";
-	-- wait until rising_edge(clk);
-	-- i<= "11000110";
-	-- wait until rising_edge(clk);
-	-- i<= "11000001";
-	-- wait until rising_edge(clk);
-	-- i<= "11000010";
-	-- wait until rising_edge(clk);
-	-- i<= "11000011";
-	-- wait until rising_edge(clk);
 end process;
 end behav;

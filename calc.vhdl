@@ -1,33 +1,13 @@
 -- Steven Soranno and Evan Deangelis
--- Problem 2 part b
+-- Main Calculator Entity
 
 library ieee;
 use ieee.std_logic_1164.all;
 
---  A testbench has no ports.
 entity calc is
 	port (
 		I: in std_logic_vector(7 downto 0);
-		clk: in std_logic;
-		poop: out std_logic_vector(7 downto 0);
-		poopO1: out std_logic_vector(7 downto 0);
-		poopO2: out std_logic_vector(7 downto 0);
-		poopR1: out std_logic_vector(1 downto 0);
-		poopR2: out std_logic_vector(1 downto 0);
-		prd: out std_logic_vector(1 downto 0);
-		pwb: out std_logic_vector(7 downto 0);
-		pre: out std_logic;
-		pout: out std_logic;
-		pp:out std_logic_vector(7 downto 0);
-		plb:out std_logic_vector(7 downto 0);
-		prt: out std_logic;
-		pInTemp:out std_logic;
-		pSV: out std_logic_vector(3 downto 0);
-		pSC: out std_logic;
-		pPostS: out std_logic_vector(3 downto 0);
-		pDB:out std_logic;
-		ptemp2: out std_logic;
-		pInSkip: out std_logic_vector(3 downto 0)
+		clk: in std_logic
 	);
 end calc;
 
@@ -102,27 +82,10 @@ component shift_reg is
 end component;
 
 signal R1, R2, RD  : std_logic_vector(1 downto 0);
-signal IMM  : std_logic_vector(3 downto 0);
+signal IMM, skipVal, inSkip, postskip, newIMM : std_logic_vector(3 downto 0);
 signal ALUSKIP, PT, DISPBEQ, REGWRITE, ADDSUB, LOAD: std_logic;
-signal O1, O2 : std_logic_vector(7 downto 0);
-signal ext : std_logic_vector(7 downto 0);
-signal WB : std_logic_vector(7 downto 0);
-signal f : std_logic;
-signal sum : std_logic_vector(7 downto 0);
-signal ALUO : std_logic_vector(7 downto 0);
-signal p : std_logic_vector(7 downto 0);
-signal LB: std_logic_vector(7 downto 0);
-signal skipVal : std_logic_vector(3 downto 0); 
-signal skipControl: std_logic;
-signal outskip: std_logic;
-signal inSkip: std_logic_vector(3 downto 0);
-signal postskip: std_logic_vector(3 downto 0);
-signal REnable : std_logic;
-signal inTemp : std_logic;
-signal printEnable : std_logic;
-signal temp2: std_logic;
-signal SRenable: std_logic;
-signal newIMM: std_logic_vector(3 downto 0);
+signal O1, O2, ext, WB, sum, ALUO, p, LB : std_logic_vector(7 downto 0);
+signal f, skipControl, outskip, REnable, inTemp, printEnable, temp2, SRenable: std_logic;
 
 begin
 
@@ -167,29 +130,9 @@ SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, 
 inTemp<= '0' when outskip = 'U' or outskip = '0' else
 	'1' when outskip = '1';
 outskip<=postskip(0) or postskip(1) or postskip(2) or postskip(3);
---outskip<='0';
 
 
 REnable<= clk when inTemp='0' else
 	'0' when inTemp='1';
 
-poop<=ALUO;
-pInTemp<=inTemp;
-poopO1<=O1;
-poopO2<=O2;
-poopR1<=R1;
-poopR2<=R2;
-prd<=RD;
-pwb<=WB;
-pre<=REnable;
-pout<=outskip;
-pp<= p;
-plb<= LB;
-prt<=PT;
-pSV<= skipVal;
-pSC<=skipControl;
-pPostS<=postskip;
-pDB<= DISPBEQ;
-ptemp2<= temp2;
-pInSkip<= inSkip;
 end behav;
