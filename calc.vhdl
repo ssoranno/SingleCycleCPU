@@ -24,7 +24,9 @@ entity calc is
 		pInTemp:out std_logic;
 		pSV: out std_logic_vector(3 downto 0);
 		pSC: out std_logic;
-		pPostS: out std_logic_vector(3 downto 0)
+		pPostS: out std_logic_vector(3 downto 0);
+		pDB:out std_logic;
+		ptemp2: out std_logic
 	);
 end calc;
 
@@ -181,4 +183,6 @@ prt<=PT;
 pSV<= skipVal;
 pSC<=skipControl;
 pPostS<=postskip;
+pDB<= DISPBEQ;
+ptemp2<= temp2;
 end behav;
