@@ -33,14 +33,15 @@ component calc
 		pSC: out std_logic;
 		pPostS: out std_logic_vector(3 downto 0);
 		ptemp2:out std_logic;
-		pDB:out std_logic
+		pDB:out std_logic;
+		pInSkip: out std_logic_vector(3 downto 0)
 	);
 end component;
 
 signal i,poop, poopO1, poopO2, pwb, plb, pp: std_logic_vector(7 downto 0);
 signal poopR1, poopR2, prd: std_logic_vector(1 downto 0);
 signal clk, pre,pout,prt,pInTemp, pSC, pDB, ptemp2: std_logic;
-signal pSVal, pPostS: std_logic_vector(3 downto 0);
+signal pSVal, pPostS, pInSkip: std_logic_vector(3 downto 0);
 
 --file infile : text;
 
@@ -48,12 +49,12 @@ constant clk_period : time := 10 ns;
 
 begin
 --  Component instantiation.
-c1: calc port map (i => I, clk => clk, poop=>poop, poopO1=>poopO1, poopO2=>poopO2, poopR1=>poopR1, poopR2=>poopR2, prd=>prd, pwb=>pwb, pre=>pre, pout=>pout, plb=>plb, pp=>pp, prt=>prt,pInTemp=>pInTemp, pSV=>pSVal, pSC=>pSC, pPostS=>pPostS, pDB=>pDB, ptemp2=>ptemp2);
+c1: calc port map (i => I, clk => clk, poop=>poop, poopO1=>poopO1, poopO2=>poopO2, poopR1=>poopR1, poopR2=>poopR2, prd=>prd, pwb=>pwb, pre=>pre, pout=>pout, plb=>plb, pp=>pp, prt=>prt,pInTemp=>pInTemp, pSV=>pSVal, pSC=>pSC, pPostS=>pPostS, pDB=>pDB, ptemp2=>ptemp2, pInSkip=>pInSkip);
 
 -- Clock process
 clk_process : process
 begin
-	for i in 1 to 50 loop
+	for i in 1 to 58 loop
 	clk <= '0';
 	wait for clk_period/2;
 	clk <= '1';
@@ -112,7 +113,7 @@ begin
 	wait until rising_edge(clk);
 	i<= "11000000";
 	-- add negative and 0 (-3=-3+0)(t1=t2+t1)
-	wait until rising_edge(clk); -- add neg
+	wait until rising_edge(clk);
 	i<= "00011001";
 	wait until rising_edge(clk);
 	i<= "11000001";
@@ -127,7 +128,7 @@ begin
 	wait until rising_edge(clk);
 	i<= "11000011";
 	-- add two negatives(-11=-3+(-8))(t0=t1+t0)
-	wait until rising_edge(clk); -- add 2 negs
+	wait until rising_edge(clk);
 	i<= "00000100";
 	wait until rising_edge(clk);
 	i<= "11000000";
@@ -200,7 +201,24 @@ begin
 	i<= "11101110";
 	wait until rising_edge(clk);
 	i<= "11000011";
+	-- load -8 into t3
 	wait until rising_edge(clk);
+	i<= "10111000";
+	wait until rising_edge(clk);
+	i<= "11000011";
+	wait until rising_edge(clk);
+	i<= "11000010";
+	-- beq two equal negatives (t2,t3) and jump 2 instructions
+	wait until rising_edge(clk);
+	i<= "11101110";
+	wait until rising_edge(clk);
+	i<= "11000011";
+	wait until rising_edge(clk);
+	i<= "11000011";
+	wait until rising_edge(clk);
+	i<= "11000001";
+	wait;
+	
 	
 	-- i<= "10000001";
 	-- wait until rising_edge(clk);
@@ -218,9 +236,5 @@ begin
 	-- wait until rising_edge(clk);
 	-- i<= "11000011";
 	-- wait until rising_edge(clk);
-	
-	
-	
-	wait;
 end process;
 end behav;

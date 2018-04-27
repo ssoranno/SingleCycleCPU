@@ -27,7 +27,7 @@ begin
 	s(0)<= s(1) and s(2);
 	print<= s(0);
 	aluSkip<= s(3) or s(0);
-	dispBEQ<= s(1) and s(2);
+	dispBEQ<= s(1) and not(s(2));
 
 	
 end architecture behav;

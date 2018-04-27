@@ -19,8 +19,8 @@ signal s1 : std_logic_vector(1 downto 0);
 signal s2 : std_logic_vector(3 downto 0);
 begin
 	
-	s1<= I(5 downto 4) when ConSig='0' else
-		I(1 downto 0) when ConSig='1';
+	s1<= I(5 downto 4) when ConSig='1' else
+		I(1 downto 0) when ConSig='0';
 	
 	s2<= "0000" when I(1 downto 0) = "00" else
 		"0001" when I(1 downto 0) = "01" else

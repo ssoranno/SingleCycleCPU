@@ -26,7 +26,8 @@ entity calc is
 		pSC: out std_logic;
 		pPostS: out std_logic_vector(3 downto 0);
 		pDB:out std_logic;
-		ptemp2: out std_logic
+		ptemp2: out std_logic;
+		pInSkip: out std_logic_vector(3 downto 0)
 	);
 end calc;
 
@@ -120,6 +121,8 @@ signal REnable : std_logic;
 signal inTemp : std_logic;
 signal printEnable : std_logic;
 signal temp2: std_logic;
+signal SRenable: std_logic;
+signal newIMM: std_logic_vector(3 downto 0);
 
 begin
 
@@ -147,16 +150,19 @@ skipControl<= temp2 when DISPBEQ = '1' else
 	
 
 temp2 <= not(LB(0) or LB(1) or LB(2) or LB(3) or LB(4) or LB(5) or LB(6) or LB(7));
-	
-skipVal<= IMM when skipControl = '1' else
+
+newIMM<= "0010" when IMM = "0001" else
+	"0100" when IMM = "0010";
+
+skipVal<= newIMM when skipControl = '1' else
 	"0000" when skipControl = '0';
 
-inSkip<= IMM when inTemp = '0' else
+inSkip<= skipVal when inTemp = '0' else
 	postskip when inTemp = '1';
 	
+SRenable<= inTemp or DISPBEQ;
 
-
-SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => skipControl, O=>postskip);
+SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => SRenable, O=>postskip);
 
 inTemp<= '0' when outskip = 'U' or outskip = '0' else
 	'1' when outskip = '1';
@@ -185,4 +191,5 @@ pSC<=skipControl;
 pPostS<=postskip;
 pDB<= DISPBEQ;
 ptemp2<= temp2;
+pInSkip<= inSkip;
 end behav;

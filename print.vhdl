@@ -28,7 +28,7 @@ variable o3: string (1 to 1);
 variable o4: string (1 to 1);
 variable sign: string(1 to 1);
 variable temp: integer;
-variable output: string(1 to 5);
+variable output: string(1 to 4);
 --variable output2: string(1 to 5);
 begin
 	if falling_edge(clk) then
@@ -42,20 +42,20 @@ begin
 			sign:= " ";
 			temp:=g;
 		end if;
-		o1:= integer'image(temp/1000);
+		--o1:= integer'image(temp/1000);
 		o2:= integer'image((temp/100)mod 10);
 		o3:= integer'image((temp/10)mod 10);
 		o4:= integer'image(temp mod 10);
 		--output2:= sign&o1&o2&o3&o4;
 		--report output2;
 		if temp < 10 then
-			output:= " "&" "&" "&sign&o4;
+			output:= " "&" "&sign&o4;
 		elsif temp < 100 then
-			output:= " "&" "&sign&o3&o4;
-		elsif temp < 1000 then
-			output:= " "&sign&o2&o3&o4;
+			output:= " "&sign&o3&o4;
 		else
-			output:= sign&o1&o2&o3&o4;
+			output:= sign&o2&o3&o4;
+		--else
+			--output:= sign&o1&o2&o3&o4;
 		end if;
 		-- o1:= integer'image(g/1000);
 		-- o2:= integer'image((g/100)mod 10);
