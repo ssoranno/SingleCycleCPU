@@ -31,7 +31,7 @@ c1: calc port map (i => I, clk => clk);
 -- Clock process
 clk_process : process
 begin
-	for i in 1 to 63 loop
+	for i in 1 to 58 loop
 	clk <= '0';
 	wait for clk_period/2;
 	clk <= '1';

@@ -99,50 +99,68 @@ signal ALUSKIP, PT, DISPBEQ, REGWRITE, ADDSUB, LOAD, f, skipControl, outskip, RE
 signal O1, O2, ext, WB, sum, ALUO, p, LB : std_logic_vector(7 downto 0);
 
 begin
--- Declare con
+-- Declare controller component portmap
+-- This component outputs the all the controll signals used by the datapath
 con: controller port map(i=>I, aluSkip=>ALUSKIP, print=>PT, dispBEQ=>DISPBEQ, regwrite=>REGWRITE, addsub=>ADDSUB, load=>LOAD);
+-- Declare instruction decode portmap
+-- The outputs from this component are used in the register file
 ID: inDecode port map(I=> I, ConSig => DISPBEQ, r1=>R1, r2=>R2, rd=> RD, imm => IMM);
+-- Declare sign extend port map
+-- Ouputs the 8 bit value to write back register file
 SE: sign_extend port map(i=>IMM, o=>ext);
+-- Declare the output for the register file 
 reg: regFile port map(r1=> R1, r2=> R2, rd=>RD, wb=>WB, clk=>REnable, enable=>REGWRITE, o1=>O1, o2=>O2);
+-- Declare ALU port map
 ALU: add_sub port map(A=>O1, B=>O2, mode=>ADDSUB, flow=>f, S=>sum);
 
+-- ALU skip mux
 ALUO<= sum when ALUSKIP='0' else
 	O1 when ALUSKIP='1';
 
+-- Print or Loop back demux based on the print control signal
 p<= ALUO when PT='1';
 LB<= ALUO when PT='0';
 
+-- print function enable logic
 printEnable<= PT and not inTemp;
 	
+-- print function port map
 P1: print port map(I=>p, EN=>printEnable, clk=>clk);
 
+-- Write back mux that determines is the wb value is the loop back value or the immediate
 WB<= ext when LOAD='0' else
 	LB when LOAD='1';
 
+-- This mux determines if an instruction should be skipped
 skipControl<= temp2 when DISPBEQ = '1' else
 	'0' when DISPBEQ = '0';
 	
-
+-- This temporary signal shows whether the loopback signal is "00000000"
 temp2 <= not(LB(0) or LB(1) or LB(2) or LB(3) or LB(4) or LB(5) or LB(6) or LB(7));
 
+-- Shift the immiedaite value by 1 so that the compare skip logic works correctly
 newIMM<= "0010" when IMM = "0001" else
 	"0100" when IMM = "0010";
 
+-- Skip value is the number of instructions to skip(should be 1 or a 2)
 skipVal<= newIMM when skipControl = '1' else
 	"0000" when skipControl = '0';
 
+-- This mux determines what value goes into the shift register
 inSkip<= skipVal when inTemp = '0' else
 	postskip when inTemp = '1';
-	
+
+-- Shift register enable
 SRenable<= inTemp or DISPBEQ;
 
+-- Shift register port map
 SR : shift_reg port map(I => inSkip, I_SHIFT_IN=> '0', sel => "10", clock=>clk, enable => SRenable, O=>postskip);
 
 inTemp<= '0' when outskip = 'U' or outskip = '0' else
 	'1' when outskip = '1';
 outskip<=postskip(0) or postskip(1) or postskip(2) or postskip(3);
 
-
+-- This mux detmerines the Write enable for the register file
 REnable<= clk when inTemp='0' else
 	'0' when inTemp='1';
 
