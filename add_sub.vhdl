@@ -4,22 +4,22 @@
 library ieee;
 use ieee.std_logic_1164.all;
  
-
+-- full_adder entity that is used by the adder subtractor
  entity full_adder is
- Port ( 	i1 : in STD_LOGIC;
- 			i2 : in STD_LOGIC;
- 			m : in STD_LOGIC;
- 			Cin : in STD_LOGIC;
- 			sum : out STD_LOGIC;
- 			Cout : out STD_LOGIC);
+ Port ( 	i1 : in STD_LOGIC; -- input 1
+ 			i2 : in STD_LOGIC; -- input 2
+ 			m : in STD_LOGIC; -- mode(add or subtract)
+ 			Cin : in STD_LOGIC; -- carry in
+ 			sum : out STD_LOGIC; -- sum or difference output
+ 			Cout : out STD_LOGIC); -- carry out
 end full_adder;
- 
-architecture behav of full_adder is
 
+architecture behav of full_adder is
+-- declaring signals
 	signal x: std_logic;
  
 begin
- 	x <= i2 xor m; 
+ 	x <= i2 xor m;
  	sum <= i1 XOR x XOR Cin;
  	Cout <= (i1 AND x) OR (Cin AND i1) OR (Cin AND x);
  
@@ -28,21 +28,19 @@ end behav;
 
 library ieee;
 use ieee.std_logic_1164.all;
--- library STD;
--- use STD.textio.all;
--- use IEEE.std_logic_textio.all;
 
+-- Adder subtractor entity
 entity add_sub is
-port(	A:	in std_logic_vector (7 downto 0);
-		B:	in std_logic_vector (7 downto 0);
-		mode: in std_logic;
-		flow: out std_logic;        
-		S:	out std_logic_vector(7 downto 0)
+port(	A:	in std_logic_vector (7 downto 0); -- input 1
+		B:	in std_logic_vector (7 downto 0); -- input 2
+		mode: in std_logic; -- mode (add or subtract)
+		flow: out std_logic;        -- overflow or underflow value
+		S:	out std_logic_vector(7 downto 0) -- sum or difference output
 );
 end add_sub;
 
 architecture behav of add_sub is
-
+	-- Full adder component
 	component full_adder is
 		port (	i1 : in STD_LOGIC;
  				i2 : in STD_LOGIC;
@@ -52,7 +50,7 @@ architecture behav of add_sub is
  				Cout : out STD_LOGIC
 		);
 	end component;
-
+	-- Declare signals
 	signal c : std_logic_vector(7 downto 0);
 
 begin 

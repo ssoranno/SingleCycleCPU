@@ -1,19 +1,23 @@
+-- Steven Soranno and Evan DeAngelis
+-- Controller
+
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- Main entity
 entity Controller is
-port(	i : in std_logic_vector(7 downto 0);
- 		aluSkip: out STD_LOGIC;
- 		print: out STD_LOGIC;
- 		dispBEQ: out STD_LOGIC;
- 		regwrite: out STD_LOGIC;
- 		addsub: out STD_LOGIC;
- 		load: out STD_LOGIC
+port(	i : in std_logic_vector(7 downto 0); -- Input instruction vector
+ 		aluSkip: out STD_LOGIC; -- ALUskip controll signal (ALU is skipped if the intruction is print or compare/BEQ
+ 		print: out STD_LOGIC; -- print function signal
+ 		dispBEQ: out STD_LOGIC; -- dispBEQ (compare vs display) control signal
+ 		regwrite: out STD_LOGIC; -- register write control signal
+ 		addsub: out STD_LOGIC; -- add or subract signal for the ALU
+ 		load: out STD_LOGIC -- load controll signal that determines the write back value for the register file
 	);
 end Controller;
 
 architecture behav of Controller is
-
+	-- Declare signals
 	signal s : std_logic_vector(3 downto 0);
 
 begin

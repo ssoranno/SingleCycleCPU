@@ -1,20 +1,22 @@
 -- Steven Soranno and Evan Deangelis
--- regFile
+-- 8 bit flip flop
 
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- main entity
 entity flipFlop_8bit is
 	port(
-	d : in std_logic_vector(7 downto 0);
-	clk : in std_logic;
-	enable : in std_logic;
-	q : out std_logic_vector(7 downto 0));
+	d : in std_logic_vector(7 downto 0); -- 8 bit input
+	clk : in std_logic; -- clock
+	enable : in std_logic; -- enable input
+	q : out std_logic_vector(7 downto 0)); -- 8 bit output
 end flipFlop_8bit;
 
 architecture ff of flipFlop_8bit is
 begin
 
+-- This process creates the flipflop and stores the value d in it.
 process(clk)
 begin
 	if rising_edge(clk) then

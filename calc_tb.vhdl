@@ -1,10 +1,9 @@
--- Steven Soranno and Evan Deangelis
+-- Steven Soranno and Evan DeAngelis
 -- Main calculator test bench
 
 library ieee;
 use ieee.std_logic_1164.all;
 use STD.Textio.all;
---use ieee.std_logic_textio.all;
 
 --  A testbench has no ports.
 entity calc_tb is
@@ -14,11 +13,12 @@ architecture behav of calc_tb is
 --  Declaration of the component that will be instantiated.
 component calc
 	port (
-		I: in std_logic_vector(7 downto 0);
-		clk: in std_logic
+		I: in std_logic_vector(7 downto 0); -- Input instruction vector
+		clk: in std_logic -- Clock
 	);
 end component;
 
+-- Declare signals
 signal i : std_logic_vector(7 downto 0);
 signal clk: std_logic;
 
@@ -31,7 +31,7 @@ c1: calc port map (i => I, clk => clk);
 -- Clock process
 clk_process : process
 begin
-	for i in 1 to 58 loop
+	for i in 1 to 63 loop
 	clk <= '0';
 	wait for clk_period/2;
 	clk <= '1';
@@ -42,19 +42,7 @@ end process;
 
 -- This process does the real job.
 process
---file   infile    : text is in  "input.txt";
---variable l : line;
---variable data : std_logic_vector(7 downto 0);
 begin
-	--file_open(infile, "input.txt",  read_mode);
-	
-	--while not(endfile(infile)) loop
-		--if rising_edge(clk) then
-		--readline(infile, l);
-		--read(l,data);
-		--i<= data;
-		--end if;
-	--end loop;
 	-- Display 0 in all registers
 	wait until rising_edge(clk);
 	i<= "11000000";

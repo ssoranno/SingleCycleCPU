@@ -1,54 +1,63 @@
--- Steven Soranno and Evan Deangelis
+-- Steven Soranno and Evan DeAngelis
 -- Main Calculator Entity
 
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- Main entity
 entity calc is
 	port (
-		I: in std_logic_vector(7 downto 0);
-		clk: in std_logic
+		I: in std_logic_vector(7 downto 0); -- Input instruction vector
+		clk: in std_logic -- Clock
 	);
 end calc;
 
 architecture behav of calc is
 
+-- Register File component
 component regFile is
 	port (
-	r1 : in std_logic_vector(1 downto 0);
-	r2 : in std_logic_vector(1 downto 0);
-	rd : in std_logic_vector(1 downto 0);
-	wb : in std_logic_vector(7 downto 0);
-	clk : in std_logic;
-	enable : in std_logic;
-	o1 : out std_logic_vector(7 downto 0);
-	o2 : out std_logic_vector(7 downto 0));
-end component;
-
-component inDecode is
-	port(
-	I  : in std_logic_vector(7 downto 0);
-	ConSig : in std_logic;
-    r1 : out std_logic_vector(1 downto 0);
-	r2 : out std_logic_vector(1 downto 0);
-	rd : out std_logic_vector(1 downto 0);
-	imm : out std_logic_vector(3 downto 0));
-end component;
-
-component sign_extend is
-	port(
-	i : in std_logic_vector(3 downto 0);
- 	o: out std_logic_vector(7 downto 0));
-end component;
-
-component print is
-	port(
-	I : in std_logic_vector(7 downto 0);
-	EN : in std_logic;
-	clk: in std_logic
+		r1 : in std_logic_vector(1 downto 0);
+		r2 : in std_logic_vector(1 downto 0);
+		rd : in std_logic_vector(1 downto 0);
+		wb : in std_logic_vector(7 downto 0);
+		clk : in std_logic;
+		enable : in std_logic;
+		o1 : out std_logic_vector(7 downto 0);
+		o2 : out std_logic_vector(7 downto 0)
 	);
 end component;
 
+-- Instruction decode component
+component inDecode is
+	port(
+		I  : in std_logic_vector(7 downto 0);
+		ConSig : in std_logic;
+		r1 : out std_logic_vector(1 downto 0);
+		r2 : out std_logic_vector(1 downto 0);
+		rd : out std_logic_vector(1 downto 0);
+		imm : out std_logic_vector(3 downto 0)
+	);
+end component;
+
+-- Sign extend conponent
+component sign_extend is
+	port(
+		i : in std_logic_vector(3 downto 0);
+		o: out std_logic_vector(7 downto 0)
+	);
+end component;
+
+-- Print function component
+component print is
+	port(
+		I : in std_logic_vector(7 downto 0);
+		EN : in std_logic;
+		clk: in std_logic
+	);
+end component;
+
+-- ALU adder subtractor component
 component add_sub is
 	port(
 		A:	in std_logic_vector (7 downto 0);
@@ -58,9 +67,10 @@ component add_sub is
 		S:	out std_logic_vector(7 downto 0));
 end component;
 
+-- Signal Controller component
 component controller is
 	port(
-	i : in std_logic_vector(7 downto 0);
+		i : in std_logic_vector(7 downto 0);
  		aluSkip: out STD_LOGIC;
  		print: out STD_LOGIC;
  		dispBEQ: out STD_LOGIC;
@@ -70,6 +80,7 @@ component controller is
 	);
 end component;
 
+-- Shift register component that is used for skipping instructions
 component shift_reg is
 	port(
 		I:	in std_logic_vector (3 downto 0); -- Input vector
@@ -81,14 +92,14 @@ component shift_reg is
 	);
 end component;
 
+-- Declare signals
 signal R1, R2, RD  : std_logic_vector(1 downto 0);
 signal IMM, skipVal, inSkip, postskip, newIMM : std_logic_vector(3 downto 0);
-signal ALUSKIP, PT, DISPBEQ, REGWRITE, ADDSUB, LOAD: std_logic;
+signal ALUSKIP, PT, DISPBEQ, REGWRITE, ADDSUB, LOAD, f, skipControl, outskip, REnable, inTemp, printEnable, temp2, SRenable: std_logic;
 signal O1, O2, ext, WB, sum, ALUO, p, LB : std_logic_vector(7 downto 0);
-signal f, skipControl, outskip, REnable, inTemp, printEnable, temp2, SRenable: std_logic;
 
 begin
-
+-- Declare con
 con: controller port map(i=>I, aluSkip=>ALUSKIP, print=>PT, dispBEQ=>DISPBEQ, regwrite=>REGWRITE, addsub=>ADDSUB, load=>LOAD);
 ID: inDecode port map(I=> I, ConSig => DISPBEQ, r1=>R1, r2=>R2, rd=> RD, imm => IMM);
 SE: sign_extend port map(i=>IMM, o=>ext);
