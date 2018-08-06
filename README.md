@@ -1,3 +1,3 @@
 # cpeg324Proj3
 
-#Single Cycle CPU VHDL code.
+## Single Cycle CPU VHDL code.
