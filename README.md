@@ -8,17 +8,18 @@ packages for Linux, Windows and MacOS. You can also download the source and comp
 there.<br>
 
 ## How to use GHDL:
-Assume GHDL is installed under the directory /usr/local/bin. Assuming we have "shift_reg.vhdl", which is
-the implementation of a 4-bit shift register, and "shift_reg_tb.vhdl", which is the test bench for our
-implementation, there are three steps to run the test bench:
-(1) Analyze: Compile the two vhdl files
-"/usr/local/bin/ghdl -a shift_reg.vhdl"
-"/usr/local/bin/ghdl -a shift_reg_tb.vhdl"
-If you use any IEEE libraries, add "--ieee= standard" after "-a".
-(2) Generate the executable for the test bench:
+Assume GHDL is installed under the directory /usr/local/bin. Assuming we have "shift_reg.vhdl", which is<br>
+the implementation of a 4-bit shift register, and "shift_reg_tb.vhdl", which is the test bench for our<br>
+implementation, there are three steps to run the test bench:<br>
+
+1. Analyze: Compile the two vhdl files<br>
+"/usr/local/bin/ghdl -a shift_reg.vhdl"<br>
+"/usr/local/bin/ghdl -a shift_reg_tb.vhdl"<br>
+If you use any IEEE libraries, add "--ieee= standard" after "-a".<br>
+2. Generate the executable for the test bench:
 "/usr/local/bin/ghdl -e shift_reg_tb"
 If you use any IEEE libraries, add "--ieee= standard" after "-e".
-(3) Run the test bench:
+3. Run the test bench:
 "/usr/local/bin/ghdl -r shift_reg_tb"
 If you want to dump waveform files, add “--vcd=shift_reg.vcd”. You can use “gtkwave” or any other
 waveform viewers to open the “shift_reg.vcd” file.
