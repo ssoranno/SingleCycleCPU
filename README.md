@@ -1,5 +1,5 @@
 # Single Cycle CPU
-Single Cycle CPU VHDL project created for Computer Systems Design course.
+Single Cycle CPU VHDL project created for Computer Systems Design course.<br>
 GHDL is required to simulate VHDL on Windows, Mac, or Linux
 
 ## How to install GHDL:
