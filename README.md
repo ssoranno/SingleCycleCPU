@@ -34,7 +34,7 @@ The datapath that we built was largely based off of the standard MIPS datapath. 
 
 The controller was created based off a truth table that showed which signals needed to be on and off for certain instructions. We took in the input bits then used the necessary logic gates to create that truth table and fed the signals out to various components that worked off of those signals.
 
-The instruction decoder would take in the 8 bit input instruction and determines which bits are sent to certain inputs in the register file.  The muxes looked at the the opcode bits to determine where to place the register values.
+The instruction decoder would take in the 8 bit input instruction and determines which bits are sent to certain inputs in the register file.  The muxes looked at the opcode bits to determine where to place the register values.
 
 The register file receives the register values from the instruction decode to decide which flip-flop will hold a value corresponding to the register. The destination register feeds into a write back demux to put the value in the corresponding register. An enable feeds into the register file to keep the flip flops from saving values when the compare function is skipping instructions.
 
