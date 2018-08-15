@@ -45,5 +45,5 @@ For the print function, we input a 8 bit value to be printed, an enable bit and 
 ## Output
 The output of the CPU simulation is a testbench file called "calc_tb.vhdl".  This testbench include many bench,arks to test our design. In order to run the testbench file use these two GHDL commands:
 1. ghdl -e calc_tb
-2. ghdl -r calc_tb "--vcd=calcWave.vcd"
+2. ghdl -r calc_tb "--vcd=calcWave.vcd"<br>
 To view the waveform run: gtkwave calcWave.vcd
