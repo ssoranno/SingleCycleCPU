@@ -1,6 +1,8 @@
 # Single Cycle CPU
 Single Cycle CPU VHDL project created for Computer Systems Design course.<br>
+
 In this project a custom 8-bit Calculator ISA was developed and implemented in a single-cycle datapath. The input for the calculator is 8-bit instructions written and a clock signal written in a testbench file and outputs decimal values when instructed. The ISA supports 5 instructions: add, subtract, load, display, and compare(beq).<br>
+
 GHDL is required to simulate VHDL on Windows, Mac, or Linux
 
 ## How to install GHDL:
