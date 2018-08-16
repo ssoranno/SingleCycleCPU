@@ -1,7 +1,7 @@
 # Single Cycle CPU
 Single Cycle CPU VHDL project created for Computer Systems Design course.<br>
 
-In this project a custom 8-bit Calculator ISA was developed and implemented in a single-cycle datapath. The input for the calculator is 8-bit instructions written and a clock signal written in a testbench file and outputs decimal values when instructed. The ISA supports 5 instructions: add, subtract, load, display, and compare(beq).<br>
+In this project a custom 8-bit Calculator ISA was developed and implemented in a single-cycle datapath. The input for the calculator is 8-bit instructions and a clock signal written in a testbench file and outputs decimal values when instructed. The ISA supports 5 instructions: add, subtract, load, display, and compare(beq).<br>
 
 GHDL is required to simulate VHDL on Windows, Mac, or Linux
 
@@ -28,7 +28,7 @@ If you want to dump waveform files, add “--vcd=shift_reg.vcd”. You can use �
 waveform viewers to open the “shift_reg.vcd” file.<br>
 
 ## Detailed Strategy
-Our original ISA worked off of 8-bit binary input using the first two bits to identify the instructions and the others to represent immediate or register values depending on the instruction. Our add instruction was 00 and then held the destination register and the two registers being added in the remaining bits respectively. Our subtraction function had the opcode of 01 and the rest worked the same as the add. The load function was 10 and then used the next two bits for the destination register and the last four for a two’s complement immediate. The compare function used 11 and then had the two registers being compared and two bits to determine one skip or two. Finally the print function had an opcode of 11 followed by four 0 bits then the register being printed. This was all kept the same from our original ISA. 
+The custom ISA worked off of 8-bit binary input using the first two bits to identify the instructions and the others to represent immediate or register values depending on the instruction. The add instruction was 00 and then held the destination register and the two registers being added in the remaining bits respectively. Our subtraction function had the opcode of 01 and the rest worked the same as the add. The load function was 10 and then used the next two bits for the destination register and the last four for a two’s complement immediate. The compare function used 11 and then had the two registers being compared and two bits to determine one skip or two. Finally the print function had an opcode of 11 followed by four 0 bits then the register being printed. This was all kept the same from our original ISA. 
 
 The datapath that we built was largely based off of the standard MIPS datapath. Our idea was to use an instruction decoder to determine instructions and registers being used, a register file to handle storing and retrieving of values in the register, and an ALU to handle all arithmetic operations. The main difference was the addition of a print component and the components necessary for handling instruction skip.
 
